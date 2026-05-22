@@ -1,0 +1,21 @@
+# Środowisko wirtualne Pythona
+venv/
+env/
+
+# Pliki tymczasowe i cache Pythona
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Dane wejściowe i wyjściowe algorytmu 
+data/inputs/*
+data/outputs/*
+!data/inputs/.gitkeep
+!data/outputs/.gitkeep
+
+# Pliki środowiskowe 
+.env
+
+# Konfiguracje edytorów 
+.vscode/
+.idea/
