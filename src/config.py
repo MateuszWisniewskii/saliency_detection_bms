@@ -14,4 +14,4 @@ DILATION_KERNEL_1 = 7     # omega_d1: Rozmiar jądra dylatacji (przed normalizac
 DILATION_KERNEL_2 = 23    # omega_d2: Rozmiar jądra dylatacji (przed ostatecznym rozmyciem) 
 
 # --- Parametry wygładzania końcowego ---
-GAUSSIAN_BLUR_STD = 5    # sigma: Odchylenie standardowe rozmycia Gaussa 
+GAUSSIAN_BLUR_STD = 20    # sigma: Odchylenie standardowe rozmycia Gaussa 
