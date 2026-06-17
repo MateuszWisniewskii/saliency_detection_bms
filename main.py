@@ -40,6 +40,9 @@ def process_image_pipeline(image_path: str, output_dir: str, use_lab: bool = Tru
     filename = os.path.basename(image_path)
     base_name, _ = os.path.splitext(filename)
 
+    image_specific_output_dir = os.path.join(output_dir, base_name)
+    os.makedirs(image_specific_output_dir, exist_ok=True)
+
     # Wczytanie oryginału do wizualizacji (przeskalowany tak samo jak w preprocessingu)
     orig_img = cv2.imread(image_path)
     h, w = orig_img.shape[:2]
@@ -79,14 +82,14 @@ def process_image_pipeline(image_path: str, output_dir: str, use_lab: bool = Tru
     plt.tight_layout()
 
     # Zapis wyników
-    raw_out_path = os.path.join(output_dir, f"{base_name}_{mode_name}_saliency.png")
+    raw_out_path = os.path.join(image_specific_output_dir, f"{base_name}_{mode_name}_saliency.png")
     cv2.imwrite(raw_out_path, final_saliency_map)
 
-    plot_out_path = os.path.join(output_dir, f"{base_name}_{mode_name}_plot.png")
+    plot_out_path = os.path.join(image_specific_output_dir, f"{base_name}_{mode_name}_plot.png")
     plt.savefig(plot_out_path, bbox_inches='tight')
     plt.close()
 
-    print(f"Zapisano wyniki w: {output_dir}\n")
+    print(f"Zapisano wyniki w: {image_specific_output_dir}\n")
 
 
 def compare_lab_vs_rgb(image_path: str, output_dir: str):
@@ -95,6 +98,12 @@ def compare_lab_vs_rgb(image_path: str, output_dir: str):
     a następnie generuje jeden wykres porównawczy obok siebie.
     """
     print(f"Porównanie Lab vs RGB dla: {image_path}")
+
+    filename = os.path.basename(image_path)
+    base_name, _ = os.path.splitext(filename)
+    
+    image_specific_output_dir = os.path.join(output_dir, base_name)
+    os.makedirs(image_specific_output_dir, exist_ok=True)
 
     # Lab
     lab_img = load_and_preprocess_image(image_path)
@@ -134,9 +143,7 @@ def compare_lab_vs_rgb(image_path: str, output_dir: str):
 
     plt.tight_layout()
 
-    filename = os.path.basename(image_path)
-    base_name, _ = os.path.splitext(filename)
-    compare_out_path = os.path.join(output_dir, f"{base_name}_lab_vs_rgb.png")
+    compare_out_path = os.path.join(image_specific_output_dir, f"{base_name}_lab_vs_rgb.png")
     plt.savefig(compare_out_path, bbox_inches='tight')
     plt.close()
 
